@@ -1,5 +1,7 @@
+using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
 using System.Timers;
+using Windows.Foundation.Collections;
 using static System.Timers.Timer;
 
 namespace CalendarTimer
@@ -11,6 +13,10 @@ namespace CalendarTimer
         private int hour;
         private int minute;
         private int second;
+        private int aHour;
+        private int aMinute;
+        private string meridiem;
+        private string aDescription;
         private System.Timers.Timer swTimer;
 
         public Form1()
@@ -27,7 +33,17 @@ namespace CalendarTimer
             swTimer.Interval = 1000;
             swTimer.Enabled = true;
             swTimer.Elapsed += SwEvent;
+
             timer1.Start();
+            for (int i = 0; i < 60; i++)
+            {
+                if (i >= 1 && i <= 12)
+                {
+                    HourBox.Items.Add(i.ToString().PadLeft(2, '0'));
+                }
+                MinuteBox.Items.Add(i.ToString().PadLeft(2, '0'));
+            }
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -39,7 +55,7 @@ namespace CalendarTimer
         {
             //Set Time as Current Time
             //Timer is necessary to display digital clock
-            CurTime.Text = DateTime.Now.ToString("HH:mm:ss \n yyyy-MM-dd dddd");
+            CurTime.Text = DateTime.Now.ToString("hh:mm:ss tt \n yyyy-MM-dd dddd");
         }
 
         private void StartBtn_Click(object sender, EventArgs e)
@@ -95,5 +111,45 @@ namespace CalendarTimer
         {
 
         }
+
+
+        private void CreateBtn_Click(object sender, EventArgs e)
+        {
+            aHour = Int32.Parse(HourBox.Text);
+            aMinute = Int32.Parse(MinuteBox.Text);
+            meridiem = MeridiemBox.Text;
+            aDescription = DescriptionBox.Text;
+
+            string aTime = HourBox.Text + ":" + MinuteBox.Text + " " 
+                + meridiem + "(" + aDescription + ")";
+            AlarmListBox.Items.Add(aTime);
+
+            //ToastContentBuilder : Used to notify clock alarm
+            //You must set Properties First 
+            //NET Framework version must be >= 7.0
+            //OS version must support >= 10.0.17763.0
+            new ToastContentBuilder()
+                .SetToastScenario(ToastScenario.Alarm)
+                .AddText(aDescription)
+                .Schedule(DateTime.Now.AddSeconds(3));
+
+        }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            AlarmListBox.Items.RemoveAt(AlarmListBox.SelectedIndex);
+        }
+
+
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            AlarmListBox.Items.Clear();
+        }
+
+        private void MeridiemBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
