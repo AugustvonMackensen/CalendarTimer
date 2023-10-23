@@ -45,15 +45,17 @@
             imageList1 = new ImageList(components);
             DeleteBtn = new Button();
             alarmBox = new GroupBox();
+            DateTimePicker1 = new DateTimePicker();
+            label4 = new Label();
+            DescriptionBox = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
             MeridiemBox = new ComboBox();
             MinuteBox = new ComboBox();
             HourBox = new ComboBox();
             alarmList = new GroupBox();
             AlarmListBox = new ListBox();
             CreateBtn = new Button();
-            label2 = new Label();
-            label3 = new Label();
-            DescriptionBox = new TextBox();
             label1 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -232,6 +234,8 @@
             // 
             // alarmBox
             // 
+            alarmBox.Controls.Add(DateTimePicker1);
+            alarmBox.Controls.Add(label4);
             alarmBox.Controls.Add(DescriptionBox);
             alarmBox.Controls.Add(label3);
             alarmBox.Controls.Add(label2);
@@ -241,10 +245,56 @@
             alarmBox.Controls.Add(HourBox);
             alarmBox.Location = new Point(26, 4);
             alarmBox.Name = "alarmBox";
-            alarmBox.Size = new Size(805, 171);
+            alarmBox.Size = new Size(805, 201);
             alarmBox.TabIndex = 3;
             alarmBox.TabStop = false;
             alarmBox.Text = "Alarm Time";
+            // 
+            // DateTimePicker1
+            // 
+            DateTimePicker1.Location = new Point(142, 163);
+            DateTimePicker1.MinDate = new DateTime(2023, 10, 23, 0, 0, 0, 0);
+            DateTimePicker1.Name = "DateTimePicker1";
+            DateTimePicker1.Size = new Size(282, 23);
+            DateTimePicker1.TabIndex = 7;
+            DateTimePicker1.ValueChanged += DateTimePicker_ValueChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(35, 169);
+            label4.Name = "label4";
+            label4.Size = new Size(32, 15);
+            label4.TabIndex = 6;
+            label4.Text = "Date";
+            // 
+            // DescriptionBox
+            // 
+            DescriptionBox.Font = new Font("Arial Narrow", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            DescriptionBox.Location = new Point(142, 103);
+            DescriptionBox.Name = "DescriptionBox";
+            DescriptionBox.Size = new Size(509, 32);
+            DescriptionBox.TabIndex = 5;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(29, 110);
+            label3.Name = "label3";
+            label3.Size = new Size(76, 20);
+            label3.TabIndex = 4;
+            label3.Text = "Description";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(29, 37);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 20);
+            label2.TabIndex = 4;
+            label2.Text = "Time";
             // 
             // MeridiemBox
             // 
@@ -284,9 +334,9 @@
             // alarmList
             // 
             alarmList.Controls.Add(AlarmListBox);
-            alarmList.Location = new Point(22, 196);
+            alarmList.Location = new Point(22, 211);
             alarmList.Name = "alarmList";
-            alarmList.Size = new Size(818, 206);
+            alarmList.Size = new Size(818, 191);
             alarmList.TabIndex = 2;
             alarmList.TabStop = false;
             alarmList.Text = "alarmList";
@@ -297,9 +347,8 @@
             AlarmListBox.ItemHeight = 15;
             AlarmListBox.Location = new Point(13, 19);
             AlarmListBox.Name = "AlarmListBox";
-            AlarmListBox.Size = new Size(791, 169);
+            AlarmListBox.Size = new Size(791, 154);
             AlarmListBox.TabIndex = 0;
-
             // 
             // CreateBtn
             // 
@@ -313,34 +362,6 @@
             CreateBtn.Text = "Create";
             CreateBtn.UseVisualStyleBackColor = true;
             CreateBtn.Click += CreateBtn_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(29, 37);
-            label2.Name = "label2";
-            label2.Size = new Size(38, 20);
-            label2.TabIndex = 4;
-            label2.Text = "Time";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(29, 110);
-            label3.Name = "label3";
-            label3.Size = new Size(76, 20);
-            label3.TabIndex = 4;
-            label3.Text = "Description";
-            // 
-            // DescriptionBox
-            // 
-            DescriptionBox.Font = new Font("Arial Narrow", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DescriptionBox.Location = new Point(142, 103);
-            DescriptionBox.Name = "DescriptionBox";
-            DescriptionBox.Size = new Size(509, 32);
-            DescriptionBox.TabIndex = 5;
             // 
             // Form1
             // 
@@ -391,5 +412,7 @@
         private TextBox DescriptionBox;
         private Label label3;
         private Label label2;
+        private Label label4;
+        private DateTimePicker DateTimePicker1;
     }
 }

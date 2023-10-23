@@ -2,6 +2,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
 using System.Timers;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using static System.Timers.Timer;
 
 namespace CalendarTimer
@@ -16,8 +17,10 @@ namespace CalendarTimer
         private int aHour;
         private int aMinute;
         private string meridiem;
+        private string dt;
         private string aDescription;
         private System.Timers.Timer swTimer;
+
 
         public Form1()
         {
@@ -119,19 +122,34 @@ namespace CalendarTimer
             aMinute = Int32.Parse(MinuteBox.Text);
             meridiem = MeridiemBox.Text;
             aDescription = DescriptionBox.Text;
+            dt = DateTimePicker1.Text;
+            string dYear = DateTimePicker1.Value.Year.ToString();
+            string dMonth = DateTimePicker1.Value.Month.ToString();
+            string dDay = DateTimePicker1.Value.Day.ToString();
 
-            string aTime = HourBox.Text + ":" + MinuteBox.Text + " " 
-                + meridiem + "(" + aDescription + ")";
-            AlarmListBox.Items.Add(aTime);
+            string aTime = dMonth + "/" + dDay + "/" + dYear + " " +
+                aHour.ToString().PadLeft(2, '0') + ":" + 
+                aMinute.ToString().PadLeft(2, '0') + " "
+                + meridiem;
+            string alarmEvent = aTime + "(" + aDescription + ")";
 
-            //ToastContentBuilder : Used to notify clock alarm
-            //You must set Properties First 
-            //NET Framework version must be >= 7.0
-            //OS version must support >= 10.0.17763.0
-            new ToastContentBuilder()
-                .SetToastScenario(ToastScenario.Alarm)
-                .AddText(aDescription)
-                .Schedule(DateTime.Now.AddSeconds(3));
+            if(DateTime.Parse(aTime) > DateTime.Now) { 
+                AlarmListBox.Items.Add(alarmEvent);
+
+                //ToastContentBuilder : Used to notify clock alarm
+                //You must set Properties First 
+                //NET Framework version must be >= 7.0
+                //OS version must support >= 10.0.17763.0
+                //It is used to alert the event
+                new ToastContentBuilder()
+                    .SetToastScenario(ToastScenario.Alarm)
+                    .AddText(aDescription)
+                    .Schedule(DateTime.Parse(aTime));
+            } else {
+                MessageBox.Show("You input an invalid time!", "Error!", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
 
         }
 
@@ -151,5 +169,9 @@ namespace CalendarTimer
 
         }
 
+        private void DateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
