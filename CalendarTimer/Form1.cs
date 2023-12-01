@@ -34,7 +34,7 @@ namespace CalendarTimer
             //swTimer.Interval = 1 : Set Stopwatch Interval as 1 miliseconds
             //swTimer.Interval = 1000 : Set Stopwatch Interval as 1 seconds
             swTimer.Interval = 1000;
-            swTimer.Enabled = true;
+            swTimer.Enabled = false;
             swTimer.Elapsed += SwEvent;
 
             timer1.Start();
@@ -63,6 +63,7 @@ namespace CalendarTimer
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
+            swTimer.Enabled = true;
             swTimer.Start();
         }
 
